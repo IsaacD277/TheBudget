@@ -50,6 +50,7 @@ struct TitheTask: View {
                                 focusIncome = true
                             }
                         
+                        #warning("add an enter and an add button so that multiple incomes can be added at once.")
                         Text("Calculate")
                             .foregroundColor(.white)
                             .fontWeight(.bold)
@@ -60,7 +61,7 @@ struct TitheTask: View {
                                 donation += (Double(income ?? "0.00") ?? 0.00) * 0.1
                                 isDonated = false
                                 focusIncome = false
-                                income = nil
+                                // income = nil
                             }
                     }
                     .padding([.horizontal, .top])
