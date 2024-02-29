@@ -16,6 +16,7 @@ struct CustomNumberKeyboard: View {
     ]
     
     @Binding var inputText: String
+    @State private var tappedKey: String?
     
     var body: some View {
         VStack(spacing: 1) {
@@ -26,7 +27,11 @@ struct CustomNumberKeyboard: View {
                             Button(action: {
                                 // Remove the last character from the input text
                                 if !inputText.isEmpty {
+                                    tappedKey = key
                                     inputText.removeLast()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        tappedKey = nil
+                                    }
                                 }
                             }) {
                                 Image(systemName: "delete.left")
@@ -34,18 +39,25 @@ struct CustomNumberKeyboard: View {
                                     .fontWeight(.black)
                                     .frame(width: 115, height: 75)
                                     .foregroundColor(.blue)
+                                    .scaleEffect(tappedKey == key ? 1.2 : 1.0) // Grow the tapped button
+                                    .animation(.bouncy, value: tappedKey) // Add animation
                             }
                         } else {
                             Button(action: {
+                                tappedKey = key
                                 inputText += key
                                 print("Button \(key) tapped")
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    tappedKey = nil
+                                }
                             }) {
                                 Text(key)
                                     .font(.largeTitle)
                                     .fontWeight(.black)
                                     .frame(width: 115, height: 75)
                                     .foregroundColor(.blue)
-                                    // .background(Color.red)
+                                    .scaleEffect(tappedKey == key ? 1.2 : 1.0) // Grow the tapped button
+                                    .animation(.bouncy, value: tappedKey) // Disable default animation
                             }
                         }
                     }
