@@ -16,7 +16,7 @@ struct TitheTask: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                if donation > 0.0 {
+                // DONATION
                     HStack {
                         Text(donation, format: .currency(code: "USD"))
                             .font(.title)
@@ -42,13 +42,14 @@ struct TitheTask: View {
                     .padding(6)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .background(
-                         RoundedRectangle(cornerRadius: 15)
-                             .stroke(Color.gray, lineWidth: 3)
-                     )
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.gray, lineWidth: 3)
+                    )
                     .padding(6)
-                }
+                    .scaleEffect((donation > 0.0) ? 1.0 : 0.0)
+                    .animation((donation > 0.0) ? .spring(.bouncy, blendDuration: 0.2) : .easeOut, value: (donation > 0.0))
                  
-                if investment > 0.0 {
+                // INVESTMENT
                     HStack {
                         Text(investment, format: .currency(code: "USD"))
                             .font(.title)
@@ -78,12 +79,14 @@ struct TitheTask: View {
                              .stroke(Color.gray, lineWidth: 3)
                      )
                     .padding(6)
-                }
+                    .scaleEffect((investment > 0.0) ? 1.0 : 0.0)
+                    .animation((investment > 0.0) ? .spring(.bouncy, blendDuration: 0.2) : .easeOut, value: (investment > 0.0))
                 
                 Spacer()
                 
                 VStack {
                     VStack {
+                        // INPUT
                         ZStack {
                             Text("$\(income ?? "0")")
                                 .font(.largeTitle)
