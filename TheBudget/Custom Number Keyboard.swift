@@ -45,7 +45,10 @@ struct CustomNumberKeyboard: View {
                         } else {
                             Button(action: {
                                 tappedKey = key
-                                inputText += key
+                                let newValue = (inputText + key).replacingOccurrences(of: ",", with: "")
+                                if let income = Double(newValue), income < 100000 {
+                                    inputText = newValue
+                                }
                                 print("Button \(key) tapped")
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                     tappedKey = nil
