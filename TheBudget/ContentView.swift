@@ -15,7 +15,10 @@ struct ContentView: View {
                     .imageScale(.large)
                     .foregroundStyle(.tint)
                 Text("Hello, world!")
-                Text("Here is a budgeting app that I'm making")
+                    .fontWeight(.light)
+                Text("This is a simple budgeting app")
+                    .fontWeight(.bold)
+                    .padding(6)
                 
                 NavigationLink(destination: TitheTask()) {
                     Text("Get Started!")

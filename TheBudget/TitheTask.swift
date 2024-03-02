@@ -11,62 +11,82 @@ struct TitheTask: View {
     @State private var income: String?
     @State private var donation: Double = 0.0
     @State private var investment: Double = 0.0
-    @State private var isDonated: Bool = true
-    @State private var isInvested: Bool = true
     @State private var focusIncome: Bool = true
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                if !isDonated {
+                // DONATION
                     HStack {
-                        Text("Donate: \(donation, format: .currency(code: "USD"))")
+                        Text(donation, format: .currency(code: "USD"))
                             .font(.title)
-                        Button(action: {
-                            isDonated = true
-                            donation = 0.0
-                            if isDonated && isInvested {
-                                focusIncome = true
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color.blue)
+                        
+                        Spacer()
+                        
+                        Text("I Donated")
+                            .foregroundStyle(Color.white)
+                            .fontWeight(.bold)
+                            .padding()
+                            .background(Color.blue)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .onTapGesture {
+                                donation = 0.0
+                                if donation <= 0.0 && investment <= 0.0 {
+                                    focusIncome = true
+                                }
                             }
-                        }) {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding()
-                                .background(Color.blue)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
                     }
-                }
+                    .frame(width: geometry.size.width * 0.8)
+                    .padding(6)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.gray, lineWidth: 3)
+                    )
+                    .padding(6)
+                    .scaleEffect((donation > 0.0) ? 1.0 : 0.0)
+                    .animation((donation > 0.0) ? .spring(.bouncy, blendDuration: 0.2) : .easeOut, value: (donation > 0.0))
                  
-                if !isInvested {
+                // INVESTMENT
                     HStack {
-                        Text("Invest: \(investment, format: .currency(code: "USD"))")
+                        Text(investment, format: .currency(code: "USD"))
                             .font(.title)
-                        Button(action: {
-                            isInvested = true
-                            investment = 0.0
-                            if isDonated && isInvested {
-                                focusIncome = true
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color.blue)
+                        
+                        Spacer()
+                        
+                        Text("I Invested")
+                            .foregroundStyle(Color.white)
+                            .fontWeight(.bold)
+                            .padding()
+                            .background(Color.blue)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .onTapGesture {
+                                investment = 0.0
+                                if donation <= 0.0 && investment <= 0.0 {
+                                    focusIncome = true
+                                }
                             }
-                            
-                        }) {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding()
-                                .background(Color.blue)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
                     }
-                }
+                    .frame(width: geometry.size.width * 0.8)
+                    .padding(6)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .background(
+                         RoundedRectangle(cornerRadius: 15)
+                             .stroke(Color.gray, lineWidth: 3)
+                     )
+                    .padding(6)
+                    .scaleEffect((investment > 0.0) ? 1.0 : 0.0)
+                    .animation((investment > 0.0) ? .spring(.bouncy, blendDuration: 0.2) : .easeOut, value: (investment > 0.0))
                 
                 Spacer()
                 
                 VStack {
                     VStack {
+                        // INPUT
                         ZStack {
                             Text("$\(income ?? "0")")
                                 .font(.largeTitle)
@@ -91,8 +111,6 @@ struct TitheTask: View {
                                     .onTapGesture {
                                         donation += (Double(income ?? "0.00") ?? 0.00) * 0.1
                                         investment += (Double(income ?? "0.00") ?? 0.00) * 0.05
-                                        isDonated = false
-                                        isInvested = false
                                         focusIncome = false
                                         income = nil
                                     }
