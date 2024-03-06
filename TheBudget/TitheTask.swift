@@ -15,131 +15,77 @@ struct TitheTask: View {
     
     // Apple Monthly Expense Tracking
     @State private var appleName: String = "Apple One"
-    @State private var appleDueDate: Int = 3
+    @State private var appleDueDate: Int = 2
     @State private var appleMonthlyBill: Double = 6.93
     @State private var appleCurrentAmount: Double = 10.0
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                // DONATION
-                HStack {
-                    Text(donation, format: .currency(code: "USD"))
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.blue)
-                    
-                    Spacer()
-                    
-                    Text("I Donated")
-                        .foregroundStyle(Color.white)
-                        .fontWeight(.bold)
-                        .padding()
-                        .background(Color.blue)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .onTapGesture {
-                            donation = 0.0
-                            if donation <= 0.0 && investment <= 0.0 {
-                                focusIncome = true
-                            }
-                        }
-                }
-                .frame(width: geometry.size.width * 0.8)
-                .padding(6)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color.gray, lineWidth: 3)
-                )
-                .padding(6)
-                .scaleEffect((donation > 0.0) ? 1.0 : 0.0)
-                .animation((donation > 0.0) ? .spring(.bouncy, blendDuration: 0.2) : .easeOut, value: (donation > 0.0))
-                 
-                // INVESTMENT
-                HStack {
-                    Text(investment, format: .currency(code: "USD"))
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.blue)
-                    
-                    Spacer()
-                    
-                    Text("I Invested")
-                        .foregroundStyle(Color.white)
-                        .fontWeight(.bold)
-                        .padding()
-                        .background(Color.blue)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .onTapGesture {
-                            investment = 0.0
-                            if donation <= 0.0 && investment <= 0.0 {
-                                focusIncome = true
-                            }
-                        }
-                }
-                .frame(width: geometry.size.width * 0.8)
-                .padding(6)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .background(
-                     RoundedRectangle(cornerRadius: 15)
-                         .stroke(Color.gray, lineWidth: 3)
-                 )
-                .padding(6)
-                .scaleEffect((investment > 0.0) ? 1.0 : 0.0)
-                .animation((investment > 0.0) ? .spring(.bouncy, blendDuration: 0.2) : .easeOut, value: (investment > 0.0))
-                
-                // APPLE ONE
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(appleName)
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundStyle(Color.blue)
+                ScrollView {
+                    LazyVStack {
+                        DonationConstant(donation: $donation)
+                            .frame(width: geometry.size.width * 0.85)
                         
-                        // Shows how many days until the bill's due date
-                        Text((daysUntilDue() == 0) ? "Due today!" : "Due in \(daysUntilDue(), format: .number) days")
-                    }
-                    
-                    VStack(alignment: .trailing) {
-                        VStack {
-                            // PROGRESS BAR
-                            ZStack(alignment: .leading) {
-                                Rectangle()
-                                    .foregroundColor(.clear)
-                                    .background(Color(red: 0.38, green: 0.61, blue: 0.54))
-                                    .clipShape(RoundedRectangle(cornerRadius: 30.0))
-                                GeometryReader { geometry in
-                                    Rectangle()
-                                        .foregroundColor(.clear)
-                                        // This contains the progress bar if there is more in the account than the monthly bill costs
-                                        .frame(width: (appleCurrentAmount >= appleMonthlyBill) ? geometry.size.width : geometry.size.width * CGFloat(appleCurrentAmount / appleMonthlyBill))
-                                        .background(Color(red: 0.59, green: 0.93, blue: 0.83))
-                                        .clipShape(RoundedRectangle(cornerRadius: 30.0))
-                                }
-                                HStack {
-                                    Spacer()
-                                    Text(appleCurrentAmount, format: .currency(code: "USD"))
-                                        .fontWeight(.bold)
-                                    Spacer()
-                                }
+                        InvestmentConstant(investment: $investment)
+                            .frame(width: geometry.size.width * 0.85)
+                        /*
+                        // APPLE ONE
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(appleName)
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color.blue)
+                                
+                                // Shows how many days until the bill's due date
+                                Text((daysUntilDue() == 0) ? "Due today!" : (daysUntilDue() == 1) ? "Due in \(daysUntilDue()) day." : "Due in \(daysUntilDue(), format: .number) days")
                             }
-                            .padding()
-                            // .frame(width: 200, height: 20)
+                            
+                            VStack(alignment: .trailing) {
+                                VStack {
+                                    // PROGRESS BAR
+                                    ZStack(alignment: .leading) {
+                                        Rectangle()
+                                            .foregroundColor(.clear)
+                                            .background(Color(red: 0.38, green: 0.61, blue: 0.54))
+                                            .clipShape(RoundedRectangle(cornerRadius: 30.0))
+                                        GeometryReader { geometry in
+                                            Rectangle()
+                                                .foregroundColor(.clear)
+                                            // This contains the progress bar if there is more in the account than the monthly bill costs
+                                                .frame(width: (appleCurrentAmount >= appleMonthlyBill) ? geometry.size.width : geometry.size.width * CGFloat(appleCurrentAmount / appleMonthlyBill))
+                                                .background(Color(red: 0.59, green: 0.93, blue: 0.83))
+                                                .clipShape(RoundedRectangle(cornerRadius: 30.0))
+                                        }
+                                        HStack {
+                                            Spacer()
+                                            Text(appleCurrentAmount, format: .currency(code: "USD"))
+                                                .fontWeight(.bold)
+                                            Spacer()
+                                        }
+                                    }
+                                    .padding(EdgeInsets(top: 0.0, leading: 1, bottom: 0, trailing: 0.0))
+                                    .frame(width: geometry.size.width * 0.49, height: 20)
+                                }
+
+                                Text("\(appleMonthlyBill, format: .currency(code: "USD"))/month")
+                            }
                         }
-                        // Text(appleCurrentAmount, format: .currency(code: "USD"))
-                        Text("\(appleMonthlyBill, format: .currency(code: "USD"))/month")
+                        .frame(width: geometry.size.width * 0.8)
+                        
+                        // Name, Due Date, Amount/month, currentAmount
+                        
+                        
+                        // Name       (_________________)
+                        // Due in 12 days     $6.93/month
+                         */
                     }
                 }
-                .frame(width: geometry.size.width * 0.8)
-                
-                // Name, Due Date, Amount/month, currentAmount
-                
-                
-                // Name       (_________________)
-                // Due in 12 days     $6.93/month
-                
+                    
                 Spacer()
                 
+                // KEYBOARD AND INPUT
                 VStack {
                     // INPUT
                     ZStack {
