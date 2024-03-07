@@ -12,7 +12,7 @@ struct CustomNumberKeyboard: View {
         ["1", "2", "3"],
         ["4", "5", "6"],
         ["7", "8", "9"],
-        [".", "0", ","]
+        [".", "0", "<"]
     ]
     
     @Binding var inputText: String
@@ -23,7 +23,7 @@ struct CustomNumberKeyboard: View {
             ForEach(rows, id: \.self) { row in
                 HStack(spacing: 1) {
                     ForEach(row, id: \.self) { key in
-                        if key == "," {
+                        if key == "<" {
                             Button(action: {
                                 // Remove the last character from the input text
                                 if !inputText.isEmpty {
@@ -45,7 +45,7 @@ struct CustomNumberKeyboard: View {
                         } else {
                             Button(action: {
                                 tappedKey = key
-                                let newValue = (inputText + key).replacingOccurrences(of: ",", with: "")
+                                let newValue = (inputText + key).replacingOccurrences(of: "<", with: "")
                                 if let income = Double(newValue), income < 100000 {
                                     inputText = newValue
                                 }
