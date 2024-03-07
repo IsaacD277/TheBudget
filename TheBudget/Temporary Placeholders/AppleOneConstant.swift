@@ -26,6 +26,8 @@ struct AppleOneConstant: View {
                     .fontWeight(.bold)
                     .foregroundStyle(Color.blue)
                 
+                Spacer()
+                
                 // PROGRESS BAR
                 ZStack(alignment: .leading) {
                     Rectangle()
@@ -48,7 +50,7 @@ struct AppleOneConstant: View {
                     }
                 }
                 .padding(EdgeInsets(top: 0.0, leading: 1, bottom: 0, trailing: 0.0))
-                .frame(height: 24)
+                .frame(width: 170, height: 24)
             }
             
             HStack {
