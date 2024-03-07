@@ -25,61 +25,16 @@ struct TitheTask: View {
                 ScrollView {
                     LazyVStack {
                         DonationConstant(donation: $donation)
-                            .frame(width: geometry.size.width * 0.85)
+                            .padding(.horizontal)
                         
                         InvestmentConstant(investment: $investment)
-                            .frame(width: geometry.size.width * 0.85)
-                        /*
-                        // APPLE ONE
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(appleName)
-                                    .font(.headline)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(Color.blue)
-                                
-                                // Shows how many days until the bill's due date
-                                Text((daysUntilDue() == 0) ? "Due today!" : (daysUntilDue() == 1) ? "Due in \(daysUntilDue()) day." : "Due in \(daysUntilDue(), format: .number) days")
-                            }
-                            
-                            VStack(alignment: .trailing) {
-                                VStack {
-                                    // PROGRESS BAR
-                                    ZStack(alignment: .leading) {
-                                        Rectangle()
-                                            .foregroundColor(.clear)
-                                            .background(Color(red: 0.38, green: 0.61, blue: 0.54))
-                                            .clipShape(RoundedRectangle(cornerRadius: 30.0))
-                                        GeometryReader { geometry in
-                                            Rectangle()
-                                                .foregroundColor(.clear)
-                                            // This contains the progress bar if there is more in the account than the monthly bill costs
-                                                .frame(width: (appleCurrentAmount >= appleMonthlyBill) ? geometry.size.width : geometry.size.width * CGFloat(appleCurrentAmount / appleMonthlyBill))
-                                                .background(Color(red: 0.59, green: 0.93, blue: 0.83))
-                                                .clipShape(RoundedRectangle(cornerRadius: 30.0))
-                                        }
-                                        HStack {
-                                            Spacer()
-                                            Text(appleCurrentAmount, format: .currency(code: "USD"))
-                                                .fontWeight(.bold)
-                                            Spacer()
-                                        }
-                                    }
-                                    .padding(EdgeInsets(top: 0.0, leading: 1, bottom: 0, trailing: 0.0))
-                                    .frame(width: geometry.size.width * 0.49, height: 20)
-                                }
-
-                                Text("\(appleMonthlyBill, format: .currency(code: "USD"))/month")
-                            }
-                        }
-                        .frame(width: geometry.size.width * 0.8)
+                            .padding(.horizontal)
                         
-                        // Name, Due Date, Amount/month, currentAmount
+                        AppleOneConstant(Name: "Apple One")
+                            .padding(.horizontal)
                         
-                        
-                        // Name       (_________________)
-                        // Due in 12 days     $6.93/month
-                         */
+                        AppleOneConstant(Name: "Spotify")
+                            .padding(.horizontal)
                     }
                 }
                     
@@ -131,39 +86,6 @@ struct TitheTask: View {
                 .animation(.bouncy, value: focusIncome)
             }
             .padding(.bottom)
-        }
-    }
-    
-    func daysUntilDue() -> Int {
-        let calendar = Calendar.current
-        let currentDate = calendar.startOfDay(for: Date())
-        
-        // Get the current month and year
-        let currentMonth = calendar.component(.month, from: currentDate)
-        let currentYear = calendar.component(.year, from: currentDate)
-        
-        var dueDateComponents = DateComponents()
-        dueDateComponents.year = currentYear
-        dueDateComponents.month = currentMonth
-        dueDateComponents.day = appleDueDate
-        
-        guard let dueDate = calendar.date(from: dueDateComponents) else {
-            return 0
-        }
-        
-        // Check if the due date is earlier than the current date
-        if dueDate < currentDate {
-            // If so, add one month to the current month
-            dueDateComponents.month = currentMonth + 1
-            // Recalculate due date
-            if let nextMonthDueDate = calendar.date(from: dueDateComponents) {
-                return calendar.dateComponents([.day], from: currentDate, to: nextMonthDueDate).day ?? 0
-            } else {
-                return 0
-            }
-        } else {
-            // Calculate the difference in days between the current date and the due date
-            return calendar.dateComponents([.day], from: currentDate, to: dueDate).day ?? 0
         }
     }
 }

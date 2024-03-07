@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B87E3122B9042D80045DCBF /* Custom Number Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B87E3112B9042D80045DCBF /* Custom Number Keyboard.swift */; };
+		6BE8DBC32B99528C004649FE /* AppleOneConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE8DBC22B99528C004649FE /* AppleOneConstant.swift */; };
 		6BED735D2B90112F00F73783 /* TheBudgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BED735C2B90112F00F73783 /* TheBudgetApp.swift */; };
 		6BED735F2B90112F00F73783 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BED735E2B90112F00F73783 /* ContentView.swift */; };
 		6BED73612B90113000F73783 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BED73602B90113000F73783 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		6B87E3112B9042D80045DCBF /* Custom Number Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Custom Number Keyboard.swift"; sourceTree = "<group>"; };
+		6BE8DBC22B99528C004649FE /* AppleOneConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleOneConstant.swift; sourceTree = "<group>"; };
 		6BED73592B90112F00F73783 /* TheBudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheBudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BED735C2B90112F00F73783 /* TheBudgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBudgetApp.swift; sourceTree = "<group>"; };
 		6BED735E2B90112F00F73783 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				6BFD6C572B9837A40096F6AA /* InvestmentConstant.swift */,
 				6BFD6C592B983D740096F6AA /* DonationConstant.swift */,
+				6BE8DBC22B99528C004649FE /* AppleOneConstant.swift */,
 			);
 			path = "Temporary Placeholders";
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				6BFD6C582B9837A40096F6AA /* InvestmentConstant.swift in Sources */,
 				6BED735F2B90112F00F73783 /* ContentView.swift in Sources */,
 				6BED736C2B90139F00F73783 /* TitheTask.swift in Sources */,
+				6BE8DBC32B99528C004649FE /* AppleOneConstant.swift in Sources */,
 				6BED735D2B90112F00F73783 /* TheBudgetApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

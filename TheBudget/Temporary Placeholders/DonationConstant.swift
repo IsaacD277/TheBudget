@@ -27,9 +27,6 @@ struct DonationConstant: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .onTapGesture {
                     donation = 0.0
-//                                    if donation <= 0.0 && investment <= 0.0 {
-//                                        focusIncome = true
-//                                    }
                 }
         }
         .padding(6)
@@ -43,6 +40,8 @@ struct DonationConstant: View {
     }
 }
 
-//#Preview {
-//    DonationConstant()
-//}
+#Preview {
+    let donation = Binding.constant(50.0)
+
+    return DonationConstant(donation: donation)
+}
